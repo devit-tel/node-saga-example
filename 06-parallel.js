@@ -109,40 +109,73 @@ const config = require("./config.json");
 
 // const workflowDef = {
 //   name: "test",
-//   rev: "test-output-5",
+//   rev: "parallel",
 //   description: "No description",
 //   tasks: [
 //     {
-//       name: "task-1",
 //       taskReferenceName: "task-1",
-//       type: "TASK",
-//       inputParameters: {
-//         userId: "${workflow.input.user._id}"
-//       }
+//       name: "task-1",
+//       type: "TASK"
+//     },
+//     {
+//       taskReferenceName: "parallel-1",
+//       type: "PARALLEL",
+//       parallelTasks: [
+//         [
+//           {
+//             taskReferenceName: "parallel-1-parallel-2",
+//             type: "PARALLEL",
+//             parallelTasks: [
+//               [
+//                 {
+//                   taskReferenceName: "parallel-1-parallel-2-1-task-1",
+//                   name: "task-1",
+//                   type: "TASK"
+//                 },
+//                 {
+//                   taskReferenceName: "parallel-1-parallel-2-1-task-2",
+//                   name: "task-2",
+//                   type: "TASK"
+//                 }
+//               ],
+//               [
+//                 {
+//                   taskReferenceName: "parallel-1-parallel-2-2-task-1",
+//                   name: "task-1",
+//                   type: "TASK"
+//                 },
+//                 {
+//                   taskReferenceName: "parallel-1-parallel-2-2-task-2",
+//                   name: "task-2",
+//                   type: "TASK"
+//                 }
+//               ]
+//             ]
+//           }
+//         ],
+//         [
+//           {
+//             taskReferenceName: "parallel-1-task-1",
+//             name: "task-1",
+//             type: "TASK"
+//           },
+//           {
+//             taskReferenceName: "parallel-1-task-2",
+//             name: "task-2",
+//             type: "TASK"
+//           }
+//         ]
+//       ]
 //     },
 //     {
 //       name: "task-2",
 //       taskReferenceName: "task-2",
-//       type: "TASK",
-//       inputParameters: {
-//         userId: "${workflow.input.user._id}"
-//       }
-//     },
-//     {
-//       name: "task-3",
-//       taskReferenceName: "task-3",
-//       type: "TASK",
-//       inputParameters: {
-//         userId: "${workflow.input.user._id}"
-//       }
+//       type: "TASK"
 //     }
 //   ],
-//   failureStrategy: "COMPENSATE",
-//   outputParameters: {
-//     transactionId: "${workflow.transactionId}",
-//     "task-1-input": "${task-1.input}",
-//     "task-2-output-hello": "${task-2.output.hello}",
-//     "when-task-2-completed": "${task-2.endTime}"
+//   failureStrategy: "COMPENSATE_THEN_RETRY",
+//   retry: {
+//     limit: 5
 //   }
 // };
 
@@ -152,7 +185,7 @@ for (let i = 1; i <= 3; i++) {
     task => {
       console.log(`Processing ${task.taskReferenceName}`);
       return {
-        status: "COMPLETED",
+        status: "COMPLETED"
       };
     },
     task => {
