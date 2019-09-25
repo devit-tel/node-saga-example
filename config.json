@@ -1,0 +1,6 @@
+{
+  "sagaConfig": {
+    "kafkaServers": "",
+    "namespace": ""
+  }
+}
