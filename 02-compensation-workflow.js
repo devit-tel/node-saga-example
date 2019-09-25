@@ -151,6 +151,9 @@ for (let i = 1; i <= 3; i++) {
     `task-${i}`,
     task => {
       console.log(`Processing ${task.taskName} (${task.transactionId})`);
+      if (task.taskName === 'task-3') {
+        throw new Error('Test error')
+      }
       return {
         status: "COMPLETED",
         output: {
@@ -169,9 +172,12 @@ for (let i = 1; i <= 3; i++) {
   ).consumer.on("ready", () => console.log(`Worker ${i} is ready!`));
 }
 
+
 // Expect result
 // Processing task-1 (8d616a55-256f-4b52-8763-a5fcc7856b25)
 // Processing task-2 (8d616a55-256f-4b52-8763-a5fcc7856b25)
 // Processing task-3 (8d616a55-256f-4b52-8763-a5fcc7856b25)
+// Compensating task-2 (8d616a55-256f-4b52-8763-a5fcc7856b25)
+// Compensating task-1 (8d616a55-256f-4b52-8763-a5fcc7856b25)
 
-// => Transaction status = COMPLETED
+// => Transaction status = COMPENSATED
