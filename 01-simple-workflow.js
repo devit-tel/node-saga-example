@@ -107,9 +107,10 @@ const config = require("./config.json");
 //   }
 // ];
 
+
 // const workflowDef = {
 //   name: "test",
-//   rev: "test-output-5",
+//   rev: "simple",
 //   description: "No description",
 //   tasks: [
 //     {

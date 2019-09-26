@@ -1,6 +1,10 @@
 {
   "sagaConfig": {
-    "kafkaServers": "",
-    "namespace": ""
+    "kafkaServers": "192.168.1.40",
+    "namespace": "home-test"
+  },
+  "adminConfig": {
+    "kafkaServers": "192.168.1.40",
+    "namespace": "home-test"
   }
 }
