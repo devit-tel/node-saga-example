@@ -1,4 +1,4 @@
-const { Worker } = require("node-saga-client");
+const { Worker, TaskStates } = require("node-saga-client");
 
 const config = require("./config.json");
 
@@ -185,13 +185,13 @@ for (let i = 1; i <= 3; i++) {
     task => {
       console.log(`Processing ${task.taskReferenceName}`);
       return {
-        status: "COMPLETED"
+        status: TaskStates.Completed
       };
     },
     task => {
       console.log(`Compensating ${task.taskReferenceName}`);
       return {
-        status: "COMPLETED"
+        status: TaskStates.Completed
       };
     },
     config.sagaConfig

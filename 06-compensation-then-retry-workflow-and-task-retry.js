@@ -1,4 +1,4 @@
-const { Worker } = require("node-saga-client");
+const { Worker, TaskStates } = require("node-saga-client");
 
 const config = require("./config.json");
 
@@ -160,7 +160,7 @@ new Worker(
       throw new Error("Test error");
     }
     return {
-      status: "COMPLETED",
+      status: TaskStates.Completed,
       output: {
         hello: "world",
         name: task.taskName
@@ -170,7 +170,7 @@ new Worker(
   task => {
     console.log(`Compensating ${task.taskName} (${task.transactionId})`);
     return {
-      status: "COMPLETED"
+      status: TaskStates.Completed
     };
   },
   config.sagaConfig
@@ -182,7 +182,7 @@ for (let i = 1; i <= 3; i++) {
     task => {
       console.log(`Processing ${task.taskName} (${task.transactionId})`);
       return {
-        status: "COMPLETED",
+        status: TaskStates.Completed,
         output: {
           hello: "world",
           name: task.taskName
@@ -192,7 +192,7 @@ for (let i = 1; i <= 3; i++) {
     task => {
       console.log(`Compensating ${task.taskName} (${task.transactionId})`);
       return {
-        status: "COMPLETED"
+        status: TaskStates.Completed
       };
     },
     config.sagaConfig
