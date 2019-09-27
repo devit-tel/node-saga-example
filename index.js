@@ -1,6 +1,6 @@
 const cluster = require('cluster')
 
-const RUNNERS = 10
+const RUNNERS = 4
 
 if (cluster.isMaster) {
   cluster.on('exit', worker => {
